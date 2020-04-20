@@ -11,11 +11,14 @@ class Spec:
             "description": getattr(app.config, "API_DESCRIPTION", ""),
             "termsOfService": getattr(app.config, "API_TERMS_OF_SERVICE", ""),
             "contact": {"email": getattr(app.config, "API_CONTACT_EMAIL", None)},
-            "license": {
-                "name": getattr(app.config, "API_LICENSE_NAME", None),
-                "url": getattr(app.config, "API_LICENSE_URL", None),
-            },
         }
+
+        app_license_name = getattr(app.config, "API_LICENSE_NAME", None)
+        if app_license_name:
+            self.info["license"] = {
+                    "name": app_license_name,
+                    "url": getattr(app.config, "API_LICENSE_URL", None),
+                }
         self.schemes = getattr(app.config, "API_SCHEMES", ["http"])
 
         self.host = getattr(app.config, "API_HOST", None)
